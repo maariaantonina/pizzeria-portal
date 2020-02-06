@@ -1,0 +1,7 @@
+{
+  "name": "Admin panel",
+  "short_name": "Dashboard",
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/"
+}
