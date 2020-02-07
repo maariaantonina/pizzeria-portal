@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Order.module.scss';
 
-const Order = ({ children }, props) => (
+const Order = ({ match: { params: { id } } }) => (
   <div className={styles.component}>
     <h2>Order View</h2>
-    <p>{props.match.params}</p>
-    {children}
+    <p>order id {id}</p>
   </div>
 );
 
