@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import PageNav from './PageNav';
+import Topbar from './Topbar';
 
 it('renders without crashing', () => {
-  shallow(<PageNav />);
+  shallow(<Topbar />);
 });

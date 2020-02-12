@@ -1,27 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Container from '@material-ui/core/Container';
+import Topbar from '../Topbar/Topbar';
+import Sidebar from '../Sidebar/Sidebar';
 
-import PageNav from '../PageNav/PageNav';
+import { makeStyles } from '@material-ui/styles';
 
-const MainLayout = ({ children }) => (
-  <div>
-    <AppBar>
-      <Container maxWidth='lg'>
-        <Toolbar disableGutters>
-          <PageNav />
-        </Toolbar>
-      </Container>
-    </AppBar>
-    <Container maxWidth='lg'>
-      <Toolbar />
-      {children}
-    </Container>
-  </div>
-);
+const useStyles = makeStyles(theme => ({
+  root: {
+    paddingTop: 56,
+    height: '100%',
+  },
+  content: {
+    height: '100%',
+  },
+}));
+
+const MainLayout = ({ children }) => {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <Topbar />
+      <Sidebar />
+      <main className={classes.content}>{children}</main>
+    </div>
+  );
+};
 
 MainLayout.propTypes = {
   children: PropTypes.node,

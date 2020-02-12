@@ -7,6 +7,8 @@ import Login from './components/views/Login/Login';
 import Tables from './components/views/Tables/Tables';
 import Waiter from './components/views/Waiter/Waiter';
 import Kitchen from './components/views/Kitchen/Kitchen';
+import Order from './components/views/Order/Order';
+import NewOrder from './components/views/NewOrder/NewOrder';
 
 import { StylesProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -16,6 +18,7 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#8c9eff',
+      contrastText: '#fff',
     },
     secondary: {
       main: '#ff8a80',
@@ -38,7 +41,19 @@ function App() {
                 />
                 <Route path={process.env.PUBLIC_URL + '/login'} component={Login} />
                 <Route path={process.env.PUBLIC_URL + '/tables'} component={Tables} />
-                <Route path={process.env.PUBLIC_URL + '/waiter'} component={Waiter} />
+                <Route
+                  exact
+                  path={process.env.PUBLIC_URL + '/waiter'}
+                  component={Waiter}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + '/waiter/order/new'}
+                  component={NewOrder}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + '/waiter/order/:id'}
+                  component={Order}
+                />
                 <Route path={process.env.PUBLIC_URL + '/kitchen'} component={Kitchen} />
               </Switch>
             </MainLayout>
