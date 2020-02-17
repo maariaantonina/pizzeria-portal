@@ -13,6 +13,7 @@ import NewOrder from './components/views/NewOrder/NewOrder';
 import { StylesProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,6 +24,10 @@ const theme = createMuiTheme({
     secondary: {
       main: '#ff8a80',
     },
+    background: {
+      default: '#F4F6F8',
+      paper: '#fff',
+    },
   },
 });
 
@@ -32,6 +37,7 @@ function App() {
       <BrowserRouter basename={'/panel'}>
         <StylesProvider injectFirst>
           <ThemeProvider theme={theme}>
+            <CssBaseline />
             <MainLayout>
               <Switch>
                 <Route

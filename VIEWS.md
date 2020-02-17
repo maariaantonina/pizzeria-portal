@@ -13,7 +13,7 @@
 # Tables Availability
 
 - `/tables`
-  - date and time inpput
+  - date and time input
   - table of bookings and events
     - column = 1 table
     - row = 30 minute

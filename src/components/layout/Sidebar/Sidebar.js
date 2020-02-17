@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Profile from '../Profile/Profile';
 import SidebarNav from '../SidebarNav/SidebarNav';
@@ -32,8 +33,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Sidebar = () => {
+const Sidebar = props => {
   const classes = useStyles();
+  const { open, variant, onClose } = props;
 
   const pages = [
     {
@@ -67,8 +69,9 @@ const Sidebar = () => {
     <Drawer
       anchor='left'
       classes={{ paper: classes.drawer }}
-      open={true}
-      variant='permanent'
+      onClose={onClose}
+      open={open}
+      variant={variant}
     >
       <div className={classes.root}>
         <Profile />
@@ -77,6 +80,12 @@ const Sidebar = () => {
       </div>
     </Drawer>
   );
+};
+
+Sidebar.propTypes = {
+  onClose: PropTypes.func,
+  open: PropTypes.bool.isRequired,
+  variant: PropTypes.string.isRequired,
 };
 
 export default Sidebar;
