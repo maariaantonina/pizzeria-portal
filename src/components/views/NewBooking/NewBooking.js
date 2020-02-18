@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styles from './NewEvent.module.scss';
+import styles from './NewBooking.module.scss';
 
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -12,12 +12,12 @@ import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
 
-const NewEvent = ({ display }) => {
+const NewBooking = ({ display }) => {
   const [visibility, setVisibility] = useState('block');
   return (
     <Box component='div' display={visibility} className={styles.component} >
       <Card>
-        <CardHeader title='New Event' action={
+        <CardHeader title='New Booking' action={
           <IconButton>
             <CloseIcon />
           </IconButton>
@@ -37,9 +37,9 @@ const NewEvent = ({ display }) => {
   );
 };
 
-NewEvent.propTypes = {
+NewBooking.propTypes = {
   children: PropTypes.node,
   display: PropTypes.bool,
 };
 
-export default NewEvent;
+export default NewBooking;
