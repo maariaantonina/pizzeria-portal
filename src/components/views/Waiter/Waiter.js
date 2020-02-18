@@ -66,7 +66,13 @@ const Waiter = () => {
         <Card className={classes.root}>
           <CardHeader
             action={
-              <Button color='primary' size='small' variant='outlined'>
+              <Button
+                component={Link}
+                color='primary'
+                size='small'
+                variant='outlined'
+                to={`${process.env.PUBLIC_URL}/waiter/order/new`}
+              >
                 New order
               </Button>
             }

@@ -9,6 +9,10 @@ import Waiter from './components/views/Waiter/Waiter';
 import Kitchen from './components/views/Kitchen/Kitchen';
 import Order from './components/views/Order/Order';
 import NewOrder from './components/views/NewOrder/NewOrder';
+import NewEvent from './components/views/NewEvent/NewEvent';
+import Event from './components/views/Event/Event';
+import Booking from './components/views/Booking/Booking';
+import NewBooking from './components/views/NewBooking/NewBooking';
 
 import { StylesProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -46,7 +50,23 @@ function App() {
                   component={Dashboard}
                 />
                 <Route path={process.env.PUBLIC_URL + '/login'} component={Login} />
-                <Route path={process.env.PUBLIC_URL + '/tables'} component={Tables} />
+                <Route exact path={process.env.PUBLIC_URL + '/tables'} component={Tables} />
+                <Route
+                  path={process.env.PUBLIC_URL + '/tables/booking/new'}
+                  component={NewBooking}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + '/tables/booking/:id'}
+                  component={Booking}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + '/tables/event/new'}
+                  component={NewEvent}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + '/tables/event/:id'}
+                  component={Event}
+                />
                 <Route
                   exact
                   path={process.env.PUBLIC_URL + '/waiter'}
