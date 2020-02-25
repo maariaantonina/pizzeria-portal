@@ -39,7 +39,7 @@ const NewEvent = ({ display }) => {
 
 NewEvent.propTypes = {
   children: PropTypes.node,
-  display: PropTypes.bool,
+  display: PropTypes.string,
 };
 
 export default NewEvent;

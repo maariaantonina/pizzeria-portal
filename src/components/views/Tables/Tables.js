@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import NewBooking from '../NewBooking/NewBooking';
 import NewEvent from '../NewEvent/NewEvent';
 
-import { makeStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/styles';
 import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableBody from '@material-ui/core/TableBody';
@@ -19,8 +19,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
 
-const useStyles = makeStyles(theme => ({
+const styles = {
   root: {},
   content: {
     padding: 0,
@@ -36,127 +37,155 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
   },
   textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
+    //marginLeft: theme.spacing(1),
+    //marginRight: theme.spacing(1),
     width: 200,
   },
   buttons: {
     marginLeft: 'auto',
   },
-}));
+};
 
-const Tables = () => {
-  const classes = useStyles();
-  const Hours = [];
-  const halfHour = ['00', '30'];
-  for (let i = 12; i < 24; i++) {
-    for (let j = 0; j < 2; j++) {
-      Hours.push(('0' + i).slice(-2) + ':' + halfHour[j]);
-    }
+class Tables extends React.Component {
+  constructor(props) {
+    super(props);
+    let today = new Date();
+    let currentDate = today.toISOString().slice(0, 10);
+    this.state = {
+      selectedDate: currentDate,
+      display: {
+        NewBooking: 'none',
+        Booking: 'none',
+        NewEvent: 'none',
+        Event: 'none',
+      },
+    };
   }
 
-  let today = new Date();
-  let currentDate = today.toISOString().slice(0, 10);
-  const [selectedDate, setSelectedDate] = useState(currentDate);
-  const [display, setDisplay] = useState({
-    NewBooking: 'none',
-    Booking: 'none',
-    NewEvent: 'none',
-    Event: 'none',
-  });
-
-  const toggleDisplay = (e, name) => {
-    setDisplay({
-      ...display,
+  toggleDisplay = (e, name) => {
+    this.setState({
       [name]: 'block',
     });
   };
-  const handleDateChange = date => {
-    setSelectedDate(date);
+
+  handleDateChange = date => {
+    this.setState({ currentDate: date });
   };
-  return (
-    <Grid container spacing={4}>
-      <Grid item lg={8} md={12} xl={9} xs={12}>
-        <Card className={classes.root}>
-          <CardHeader
-            action={
-              <form className={classes.input_container} noValidate>
-                <TextField
-                  id="date"
-                  label="Date"
-                  type="date"
-                  defaultValue={selectedDate}
-                  onChange={handleDateChange}
-                  className={classes.textField}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </form>
-            }
-            title='Tables'
-          />
-          <CardActions >
-            <Button
-              className={classes.buttons}
-              color='primary'
-              size='small'
-              variant='outlined'
-              onClick={e => toggleDisplay(e, 'NewBooking')}
-            >
-              New booking
-            </Button>
 
-            <Button
-              color='primary'
-              size='small'
-              variant='outlined'
-              name='NewEvent'
-              onClick={e => toggleDisplay(e, 'NewEvent')}
-            >
-              New event
-            </Button>
-          </CardActions>
+  render() {
+    const { loading: { active, error }, tables } = this.props;
+    const Hours = [];
+    const halfHour = ['00', '30'];
+    for (let i = 12; i < 24; i++) {
+      for (let j = 0; j < 2; j++) {
+        Hours.push(('0' + i).slice(-2) + ':' + halfHour[j]);
+      }
+    }
 
-          <Divider />
-          <CardContent className={classes.content}>
-            <div className={classes.inner}>
-              <TableContainer className={classes.container}>
-                <Table stickyHeader aria-label='sticky table'>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell></TableCell>
-                      <TableCell>Table 1</TableCell>
-                      <TableCell>Table 2</TableCell>
-                      <TableCell>Table 3</TableCell>
-                      <TableCell>Table 4</TableCell>
-                      <TableCell>Table 5</TableCell>
-                      <TableCell>Table 6</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {Hours.map(row => (
-                      <TableRow hover key={row}>
-                        <TableCell>{row}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item lg={4} md={12} xl={3} xs={12}>
-        <NewBooking display={display.NewBooking} />
-        <NewEvent display={display.NewEvent} />
-      </Grid>
-    </Grid>
-  );
-};
+    if (active || !tables.length) {
+      return (
+        <Paper className={styles.component}>
+          <p>Loading...</p>
+        </Paper>
+      );
+    } else if (error) {
+      return (
+        <Paper className={styles.component}>
+          <p>Error! Details:</p>
+          <pre>{error}</pre>
+        </Paper>
+      );
+    } else {
+      return (
+        <Grid container spacing={4}>
+          <Grid item lg={8} md={12} xl={9} xs={12}>
+            <Card className={styles.root}>
+              <CardHeader
+                action={
+                  <form className={styles.input_container} noValidate>
+                    <TextField
+                      id="date"
+                      label="Date"
+                      type="date"
+                      defaultValue={this.state.selectedDate}
+                      onChange={this.handleDateChange}
+                      className={styles.textField}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  </form>
+                }
+                title='Tables'
+              />
+              <CardActions >
+                <Button
+                  className={styles.buttons}
+                  color='primary'
+                  size='small'
+                  variant='outlined'
+                  onClick={e => this.BookingtoggleDisplay(e, 'NewBooking')}
+                >
+                  New booking
+                </Button>
+
+                <Button
+                  color='primary'
+                  size='small'
+                  variant='outlined'
+                  name='NewEvent'
+                  onClick={e => this.toggleDisplay(e, 'NewEvent')}
+                >
+                  New event
+                </Button>
+              </CardActions>
+
+              <Divider />
+              <CardContent className={styles.content}>
+                <div className={styles.inner}>
+                  <TableContainer className={styles.container}>
+                    <Table stickyHeader aria-label='sticky table'>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell></TableCell>
+                          <TableCell>Table 1</TableCell>
+                          <TableCell>Table 2</TableCell>
+                          <TableCell>Table 3</TableCell>
+                          <TableCell>Table 4</TableCell>
+                          <TableCell>Table 5</TableCell>
+                          <TableCell>Table 6</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {Hours.map(row => (
+                          <TableRow hover key={row}>
+                            <TableCell>{row}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item lg={4} md={12} xl={3} xs={12}>
+            <NewBooking display={this.state.display.NewBooking} />
+            <NewEvent display={this.state.display.NewEvent} />
+          </Grid>
+        </Grid>
+      );
+    }
+  }
+}
 
 Tables.propTypes = {
-  children: PropTypes.node,
+  fetchTables: PropTypes.func,
+  loading: PropTypes.shape({
+    active: PropTypes.bool,
+    error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  }),
+  tables: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
-export default Tables;
+export default withStyles(styles)(Tables);

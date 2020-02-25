@@ -39,7 +39,7 @@ const NewBooking = ({ display }) => {
 
 NewBooking.propTypes = {
   children: PropTypes.node,
-  display: PropTypes.bool,
+  display: PropTypes.string,
 };
 
 export default NewBooking;
