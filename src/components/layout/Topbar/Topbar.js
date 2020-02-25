@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { ReactComponent as Logo } from '../../../assets/logo/logo--white.svg';
 
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import MenuIcon from '@material-ui/icons/Menu';

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Profile from '../Profile/Profile';
 import SidebarNav from '../SidebarNav/SidebarNav';
 
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Divider, Drawer } from '@material-ui/core';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
